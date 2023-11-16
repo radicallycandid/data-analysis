@@ -116,16 +116,52 @@ def is_palindrome(s):
     return s == s[::-1]
 
 
+help(is_palindrome)
+
+
 # 7. List Sum
-def sum_list(lst):
-    result = 0
-    for item in lst:
-        result += item
-    return result
+def sum_list(lst: list) -> float:
+    """
+    Calculate the sum of elements in a list.
+
+    This function uses a generator expression to iterate over the list and sum its elements.
+    It is designed to be memory-efficient for large lists.
+
+    Args:
+    lst (list): A list of numbers (integers or floats).
+
+    Returns:
+    float: The sum of the elements in the list.
+
+    Raises:
+    TypeError: If the input is not a list or if the list contains non-numeric elements.
+    """
+    if not all(isinstance(item, (int, float)) for item in lst):
+        raise TypeError("All elements in the list must be numbers")
+
+    return sum(item for item in lst)
 
 
 # 8. Unique Elements
-def unique_elements(lst):
+def unique_elements(lst: list) -> list:
+    """
+    Return a list of unique elements from the input list.
+
+    This function iterates over each element in the input list and adds it to the result list
+    only if it's not already present, thereby ensuring uniqueness.
+
+    Args:
+    lst (list): The list from which to extract unique elements.
+
+    Returns:
+    list: A list containing only the unique elements of the input list.
+
+    Raises:
+    TypeError: If the input is not a list.
+    """
+    if not isinstance(lst, list):
+        raise TypeError("Input must be a list")
+
     result = []
     for item in lst:
         if item not in result:
