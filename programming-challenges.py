@@ -8,6 +8,22 @@ def hello_world() -> None:
 
 # 2. Addition Function
 def add_numbers(a: int | float, b: int | float) -> float:
+    """
+    Add two numbers together.
+
+    This function takes two arguments, both of which should be integers or floats,
+    and returns their sum. If either of the arguments is not a number, a TypeError is raised.
+
+    Args:
+    a (int | float): The first number to be added.
+    b (int | float): The second number to be added.
+
+    Returns:
+    float: The sum of a and b.
+
+    Raises:
+    TypeError: If either a or b is not an integer or float.
+    """
     if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
         raise TypeError("Both arguments must be numbers")
     return a + b
@@ -15,6 +31,21 @@ def add_numbers(a: int | float, b: int | float) -> float:
 
 # 3. Maximum of Any
 def max_of_any(*args: int | float) -> float:
+    """
+    Find the maximum value among any number of numeric arguments.
+
+    This function accepts a variable number of arguments, all expected to be integers or floats,
+    and returns the largest one. If any argument is not a number, a TypeError is raised.
+
+    Args:
+    *args (int | float): A variable number of integers or floats to find the maximum from.
+
+    Returns:
+    float: The highest value among the provided arguments.
+
+    Raises:
+    TypeError: If any argument in args is not an integer or float.
+    """
     if not all(isinstance(item, (int, float)) for item in args):
         raise TypeError("All arguments must be numbers")
     result = float("-inf")
@@ -25,6 +56,21 @@ def max_of_any(*args: int | float) -> float:
 
 # 4. Length of String
 def string_length(s: str) -> int:
+    """
+    Calculate the length of a given string.
+
+    This function determines the length of the provided string by counting its characters.
+    It raises a TypeError if the input is not a string.
+
+    Args:
+    s (str): The string whose length is to be determined.
+
+    Returns:
+    int: The length of the string.
+
+    Raises:
+    TypeError: If the input is not a string.
+    """
     if not isinstance(s, str):
         raise TypeError("Input must be a string")
     return sum(1 for _ in s)
