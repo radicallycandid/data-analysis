@@ -32,17 +32,42 @@ def string_length(s: str) -> int:
 
 # 5. Vowel Counter
 def count_vowels(s: str) -> int:
+    """
+    Count the number of vowels in a given string.
+
+    Args:
+    s (str): The string to count vowels in.
+
+    Returns:
+    int: The number of vowels in the string.
+
+    Raises:
+    TypeError: If the input is not a string.
+    """
     if not isinstance(s, str):
         raise TypeError("Input must be a string")
+
     return sum(char in "aeiou" for char in s.lower())
 
 
 # 6. Palindrome Checker
 def is_palindrome(s):
-    reversed_string = ""
-    for char in s:
-        reversed_string = char + reversed_string
-    return s == reversed_string
+    """
+    Check if the given input is a palindrome.
+
+    Args:
+    s: The input to check. Expected to be a string.
+
+    Returns:
+    bool: True if s is a palindrome, False otherwise.
+
+    Raises:
+    TypeError: If the input is not a string.
+    """
+    if not isinstance(s, str):
+        raise TypeError("Input must be a string")
+
+    return s == s[::-1]
 
 
 # 7. List Sum
