@@ -7,26 +7,29 @@ def hello_world() -> None:
 
 
 # 2. Addition Function
-def add_numbers(a: int | float, b: int | float) -> float:
+def add_numbers(*args: int | float) -> float:
     """
-    Add two numbers together.
+    Add any number of numbers together.
 
-    This function takes two arguments, both of which should be integers or floats,
-    and returns their sum. If either of the arguments is not a number, a TypeError is raised.
+    This function takes a variable number of arguments, all of which should be integers or floats,
+    and returns their sum. If any of the arguments is not a number, a TypeError is raised.
 
     Args:
-    a (int | float): The first number to be added.
-    b (int | float): The second number to be added.
+    *args (int | float): A variable number of integers or floats to be summed.
 
     Returns:
-    float: The sum of a and b.
+    float: The sum of all provided arguments.
 
     Raises:
-    TypeError: If either a or b is not an integer or float.
+    TypeError: If any argument is not an integer or float.
     """
-    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-        raise TypeError("Both arguments must be numbers")
-    return a + b
+    if not all(isinstance(item, (int, float)) for item in args):
+        raise TypeError("All arguments must be numbers")
+
+    total = 0.0
+    for number in args:
+        total += number
+    return total
 
 
 # 3. Maximum of Any
