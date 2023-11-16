@@ -170,18 +170,66 @@ def unique_elements(lst: list) -> list:
 
 
 # 9. Prime Number Checker
-def is_prime(n):
-    result = True
-    for i in range(2, n):
+def is_prime(n: int) -> bool:
+    """
+    Check if a number is prime.
+
+    A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+    This function checks if the given number is prime by testing divisibility of odd numbers starting from 3
+    up to the square root of n. Even numbers greater than 2 are automatically considered non-prime.
+
+    Args:
+    n (int): The number to be checked.
+
+    Returns:
+    bool: True if n is a prime number, False otherwise.
+
+    Raises:
+    ValueError: If the input is not a positive integer.
+    """
+    if not isinstance(n, int) or n < 1:
+        raise ValueError("Input must be a positive integer")
+
+    if n == 1:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+
+    for i in range(3, int(n**0.5) + 1, 2):
         if n % i == 0:
-            result = False
-            break
-    return result
+            return False
+
+    return True
 
 
 # 10. Fibonacci Sequence
-def fibonacci(n):
-    if n <= 1:
-        return 1
-    else:
-        return fibonacci(n - 1) + fibonacci(n - 2)
+def fibonacci(n: int) -> int:
+    """
+    Calculate the nth Fibonacci number.
+
+    The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones,
+    usually starting with 0 and 1. This function uses memoization to efficiently compute the nth number
+    in the Fibonacci sequence.
+
+    Args:
+    n (int): The position in the Fibonacci sequence to compute.
+
+    Returns:
+    int: The nth Fibonacci number.
+
+    Raises:
+    ValueError: If the input is not a non-negative integer.
+    """
+    if not isinstance(n, int) or n < 0:
+        raise ValueError("Input must be a non-negative integer")
+
+    memo = {0: 0, 1: 1}  # Base cases
+
+    def helper(x):
+        if x not in memo:
+            memo[x] = helper(x - 1) + helper(x - 2)
+        return memo[x]
+
+    return helper(n)
