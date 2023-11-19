@@ -1,3 +1,6 @@
+import time
+
+
 # 1. Hello World Function
 def hello_world() -> None:
     """
@@ -119,9 +122,6 @@ def is_palindrome(s):
     return s == s[::-1]
 
 
-help(is_palindrome)
-
-
 # 7. List Sum
 def sum_list(lst: list) -> float:
     """
@@ -207,32 +207,67 @@ def is_prime(n: int) -> bool:
     return True
 
 
-# 10. Fibonacci Sequence
-def fibonacci(n: int) -> int:
+def fibonacci_recursive(n):
     """
-    Calculate the nth Fibonacci number.
+    Calculate the nth Fibonacci number using recursion.
 
+    This function computes the nth number in the Fibonacci sequence using a simple recursive algorithm.
     The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones,
-    usually starting with 0 and 1. This function uses memoization to efficiently compute the nth number
-    in the Fibonacci sequence.
+    usually starting with 0 and 1.
 
-    Args:
-    n (int): The position in the Fibonacci sequence to compute.
+    Parameters:
+    n (int): The position in the Fibonacci sequence to compute. Must be a non-negative integer.
 
     Returns:
     int: The nth Fibonacci number.
 
     Raises:
-    ValueError: If the input is not a non-negative integer.
+    ValueError: If the input 'n' is not a non-negative integer.
+
     """
     if not isinstance(n, int) or n < 0:
-        raise ValueError("Input must be a non-negative integer")
+        raise ValueError("The input must be a non-negative integer")
+    if n <= 1:
+        return n
+    else:
+        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
 
-    memo = {0: 0, 1: 1}  # Base cases
 
-    def helper(x):
-        if x not in memo:
-            memo[x] = helper(x - 1) + helper(x - 2)
-        return memo[x]
+def fibonacci_memo(n, memo=None):
+    """
+    Calculate the nth Fibonacci number using recursion with memoization.
 
-    return helper(n)
+    This function computes the nth number in the Fibonacci sequence using a recursive algorithm with memoization
+    to improve efficiency. Memoization stores the results of expensive function calls and returns the cached result
+    when the same inputs occur again.
+
+    Parameters:
+    n (int): The position in the Fibonacci sequence to compute. Must be a non-negative integer.
+    memo (dict, optional): A dictionary to store previously computed values. Defaults to None.
+
+    Returns:
+    int: The nth Fibonacci number.
+
+    Raises:
+    ValueError: If the input 'n' is not a non-negative integer.
+
+    """
+    if memo is None:
+        memo = {}
+    if not isinstance(n, int) or n < 0:
+        raise ValueError("The input must be a non-negative integer")
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        return n
+    memo[n] = fibonacci_memo(n - 1, memo) + fibonacci_memo(n - 2, memo)
+    return memo[n]
+
+
+max_fib = 35
+
+start_time = time.time()
+for i in range(max_fib + 1):
+    print(f"fib({i}) = {fibonacci_recursive(i)}")
+end_time = time.time()
+print(f"It took {end_time - start_time:.6f} seconds")
